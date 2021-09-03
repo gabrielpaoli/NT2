@@ -3,5 +3,81 @@
 </head>
 
 <body>
-HOLU  
+
+    <div class="filters">
+        <button id="filter100" data-filter="100">Precio menor a 100</button>
+        <button id="filter250" data-filter="250">Precio menor a 250</button>
+        <button id="filter1000" data-filter="1000">Precio menor a 1000</button>
+    </div>
+
+    <button id="verTodos">Ver todos</button>
+
+    <button id="OrdenarPorPrecioAsc">Ordenar por precio Asc</button>
+    <button id="OrdenarPorPrecioDesc">Ordenar por precio Desc</button>
+
+
+    <table border=1 width=50% id="listaDeProductos"></table>
+
+    <script>
+
+        const listaDeProductos = [
+            {nombre: "taladro", precio: 22},
+            {nombre: "TV", precio: 800},
+            {nombre: "mesa", precio: 88},
+            {nombre: "amoladora", precio: 400},
+            {nombre: "martillo", precio: 150},
+            {nombre: "ventana", precio: 200},
+        ];
+
+        const divListaDeProductos = document.getElementById("listaDeProductos");
+        const clearDivListaDeProductos = () => {divListaDeProductos.innerHTML = ""}
+
+        const productosFiltradosPorPrecio = (precio) => {
+            const newListaDeProductos = listaDeProductos.filter(function (producto) {
+                return producto.precio <= precio;
+            });
+            return newListaDeProductos;
+        }
+
+        const mostrarListaDeProductos = (listaDeProductos) => {
+            clearDivListaDeProductos();
+            divListaDeProductos.innerHTML += '<tr><th>Nombre</th><th>Precio</th></tr>'
+            listaDeProductos.forEach(producto => {
+                divListaDeProductos.innerHTML += "<tr><td>" + producto.nombre + "</td>" +  "<td>" + producto.precio + "</td></tr>";
+            });
+        }
+
+        mostrarListaDeProductos(listaDeProductos);
+
+        document.getElementById("filter100").addEventListener("click", function() {
+            newListaDeProductos = productosFiltradosPorPrecio(100);
+            mostrarListaDeProductos(newListaDeProductos);
+        }, false);
+        
+        document.getElementById("filter250").addEventListener("click", function() {
+            newListaDeProductos = productosFiltradosPorPrecio(250);
+            mostrarListaDeProductos(newListaDeProductos);
+        }, false);
+        
+        document.getElementById("filter1000").addEventListener("click", function() {
+            newListaDeProductos = productosFiltradosPorPrecio(1000);
+            mostrarListaDeProductos(newListaDeProductos);
+        }, false);
+        
+        document.getElementById("verTodos").addEventListener("click", function() {
+            mostrarListaDeProductos(listaDeProductos);
+        }, false);
+       
+        document.getElementById("OrdenarPorPrecioAsc").addEventListener("click", function() {
+            newListaDeProductos = listaDeProductos.slice().sort((a,b) => (a.precio > b.precio) ? 1 : ((b.precio > a.precio) ? -1 : 0))
+            mostrarListaDeProductos(newListaDeProductos);
+        }, false);
+       
+        document.getElementById("OrdenarPorPrecioDesc").addEventListener("click", function() {
+            newListaDeProductos = listaDeProductos.slice().sort((a,b) => (a.precio < b.precio) ? 1 : ((b.precio < a.precio) ? -1 : 0))
+            mostrarListaDeProductos(newListaDeProductos);
+        }, false);
+
+    </script>
+
 </body>
