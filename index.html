@@ -29,9 +29,13 @@
             {nombre: "ventana", precio: 200},
         ];
 
+        //Obtengo la lista
         const divListaDeProductos = document.getElementById("listaDeProductos");
+
+        //Metodo para borrar la lista
         const clearDivListaDeProductos = () => {divListaDeProductos.innerHTML = ""}
 
+        //Metodo para ordenar por precio
         const productosFiltradosPorPrecio = (precio) => {
             const newListaDeProductos = listaDeProductos.filter(function (producto) {
                 return producto.precio <= precio;
@@ -39,6 +43,7 @@
             return newListaDeProductos;
         }
 
+        //Metodo para mostrar la tabla de productos
         const mostrarListaDeProductos = (listaDeProductos) => {
             clearDivListaDeProductos();
             divListaDeProductos.innerHTML += '<tr><th>Nombre</th><th>Precio</th></tr>'
@@ -47,32 +52,39 @@
             });
         }
 
+        //Muestro los productos
         mostrarListaDeProductos(listaDeProductos);
 
+        //Boton: filtro menores a 100
         document.getElementById("filter100").addEventListener("click", function() {
             newListaDeProductos = productosFiltradosPorPrecio(100);
             mostrarListaDeProductos(newListaDeProductos);
         }, false);
         
+        //Boton: filtro menores a 250
         document.getElementById("filter250").addEventListener("click", function() {
             newListaDeProductos = productosFiltradosPorPrecio(250);
             mostrarListaDeProductos(newListaDeProductos);
         }, false);
         
+        //Boton: filtro menores a 1000
         document.getElementById("filter1000").addEventListener("click", function() {
             newListaDeProductos = productosFiltradosPorPrecio(1000);
             mostrarListaDeProductos(newListaDeProductos);
         }, false);
         
+        //Boton: Muestro todos los productos
         document.getElementById("verTodos").addEventListener("click", function() {
             mostrarListaDeProductos(listaDeProductos);
         }, false);
        
+        //Boton: Ordeno por precios ascendente
         document.getElementById("OrdenarPorPrecioAsc").addEventListener("click", function() {
             newListaDeProductos = listaDeProductos.slice().sort((a,b) => (a.precio > b.precio) ? 1 : ((b.precio > a.precio) ? -1 : 0))
             mostrarListaDeProductos(newListaDeProductos);
         }, false);
        
+        //Boton: Ordeno por precios descendente
         document.getElementById("OrdenarPorPrecioDesc").addEventListener("click", function() {
             newListaDeProductos = listaDeProductos.slice().sort((a,b) => (a.precio < b.precio) ? 1 : ((b.precio < a.precio) ? -1 : 0))
             mostrarListaDeProductos(newListaDeProductos);
